@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -24,5 +25,11 @@ public class DescriptionController {
         Map<String, Object> model = new HashMap<String, Object>();
         model.put("description", description);
         return new ModelAndView("index", model);
+    }
+    @RequestMapping("/infoByRequest")
+    public String request(HttpServletRequest request){
+        Description description = descriptionService.getLastDescription();
+        request.setAttribute("description",description);
+        return "description";
     }
 }
